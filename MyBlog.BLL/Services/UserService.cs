@@ -68,7 +68,7 @@ namespace MyBlog.BLL.Services
         public async Task<IdentityResult> EditUserAsync(EditUserViewModel model)
         {
             var user = await _userService.FindByIdAsync(model.Id.ToString());
-            Console.WriteLine("");
+
             if (model.Firstname != null)
             {
                 user.Firstname = model.Firstname;
@@ -76,10 +76,6 @@ namespace MyBlog.BLL.Services
             if (model.Lastname != null)
             {
                 user.Lastname = model.Lastname;
-            }
-            if (model.Email != null)
-            {
-                user.Email = model.Email;
             }
             if (model.NewPassword != null)
             {
@@ -114,10 +110,9 @@ namespace MyBlog.BLL.Services
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
                 Login = user.UserName,
-                Email = user.Email,
                 NewPassword = string.Empty,
-                Id = id,
-                //Roles = allRolesName.Select(r => new RoleViewModel() { Id = r.Id, Name = r.Name }).ToList(),
+                Id = user.Id,
+                Roles = allRolesName.Select(r => new RoleViewModel() { Id = r.Id, Name = r.Name }).ToList(),
             };
             return model;
         }

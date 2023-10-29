@@ -15,19 +15,19 @@
             <div class="card w-75">
                 <div class="card-body">
                     <h5 class="card-title">@user.FirstName</h5>
+                    <h5>Роли:</h5>
                     @foreach(var role in user.Roles)
                     {
-                        <h5>Роль:</h5>
                             @role
-                        <h5>Посты:</h5>
-                    }                   
+                    }
+                    <h5>Посты:</h5>
                 </div>
             </div>
             if (User.IsInRole("Администратор"))
             {
             }
             <a class="btn btn-sm btn-primary" method="get" asp-controller="User" asp-action="GetUser" asp-route-id="@user.Id">Посмотреть профиль</a>
-            <a class="btn btn-sm btn-primary" method="get" asp-controller="User" asp-action="EditUser" asp-route-id="@user.Id">Посмотреть профиль</a>
+            <a class="btn btn-sm btn-primary" method="get" asp-controller="User" asp-action="EditUser" asp-route-id="@user.Id">Редактировать профиль</a>
             <p></p>
         }
     }
