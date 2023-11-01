@@ -36,6 +36,5 @@ namespace MyBlog.Data.Repositories
                 SelectMany(a => a.Tags, (a, t) => new { Article = a, TagId = t.Id }).
                 Where(x => x.TagId == tagId).Select(x => x.Article).ToListAsync();
         }
-
     }
 }

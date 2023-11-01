@@ -1,0 +1,19 @@
+﻿@model EditTagViewModel
+@{
+	ViewData["Title"] = "Edition-tag page";
+}
+
+<div class="container-page">
+	<h2 class="title-margin">Редактирование тега: </h2>
+	<form method="post" asp-controller="Tag" asp-action="Edit"> <div asp-validation-summary="All" class="text-danger"></div>
+		<div style="margin-bottom: 5px">
+			<input hidden="true" asp-for="Id" readonly="true"></input><br />
+			<span>Name: </span>
+			<input class="form-control" asp-for="Name" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div>
+			<input class="btn btn-sm btn-primary" type="submit" value="Сохранить" />
+		</div>
+	</form>
+</div>

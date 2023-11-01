@@ -1,0 +1,34 @@
+﻿@model ArticlesViewModel
+@{
+    ViewData["Title"] = "List of Articles";
+}
+@{
+    @if (Model.Articles.Count == 0)
+    {
+        <h5 class="card-title">Нет данных для отображения</h5>
+    }
+    else
+    {
+        <h5 class="card-title">Все статьи:</h5>
+        @foreach (var article in @Model.Articles)
+        {
+            <div class="card w-75">
+                <div class="card-body">
+                    <h5 class="card-title">@article.Id</h5>
+                    <h5 class="card-title">@article.User.Email</h5>
+                    <h5 class="card-title">@article.Title</h5>
+                    @foreach (var tag in article.Tags)
+                    {
+                        <span>@tag.Name</span>
+                    }
+                </div>
+            </div>
+            <a class="btn btn-sm btn-primary" method="get" asp-controller="Article" asp-action="Get" asp-route-id="@article.Id">Посмотреть</a>
+            <a class="btn btn-sm btn-primary" method="get" asp-controller="Article" asp-action="Edit" asp-route-id="@article.Id">Редактировать</a>
+            <form method="post" asp-controller="Article" asp-action="Delete" asp-route-id="@article.Id">
+                <input class="btn alert-danger button" type="submit" value="Удалить" />
+            </form>
+            <p></p>
+        }
+    }
+}

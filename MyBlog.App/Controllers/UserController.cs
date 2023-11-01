@@ -21,14 +21,14 @@ namespace MyBlog.App.Controllers
             _roleService = roleService;
         }
 
-        [Route("Register")]
+        [Route("User/Register")]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-        [Route("Register")]
+        [Route("User/Register")]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
@@ -54,17 +54,17 @@ namespace MyBlog.App.Controllers
             return View(model);
         }
 
-        [Route("Login")]
+        [Route("User/Login")]
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        [Route("Login")]
+        [Route("User/Login")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginAsync(LoginUserViewModel model)
+        public async Task<IActionResult> Login(LoginUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,6 @@ namespace MyBlog.App.Controllers
 
                 if (result.Succeeded)
                 {
-                    Console.WriteLine($"Осуществлен вход пользователя с адресом - {model.Email}");
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -83,14 +82,14 @@ namespace MyBlog.App.Controllers
             return View(model);
         }
 
-		[Route("Create")]
+		[Route("User/Create")]
 		[HttpGet]
 		public IActionResult Create()
 		{
 			return View();
 		}
 
-		[Route("Create")]
+		[Route("User/Create")]
 		[HttpPost]
 		public async Task<IActionResult> Create(CreateUserViewModel model)
 		{
@@ -100,7 +99,7 @@ namespace MyBlog.App.Controllers
 
 				if (result.Succeeded)
 				{
-					return RedirectToAction("GetUsers", "User");
+					return RedirectToAction("GetAll", "User");
 				}
 				else
 				{
@@ -113,26 +112,26 @@ namespace MyBlog.App.Controllers
 			return View(model);
 		}
 
-		[Route("Edit")]
+		[Route("User/Edit")]
         //[Authorize(Roles = "Администратор, Модератор")]
         [HttpGet]
-        public async Task<IActionResult> EditUser(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var model = await _userService.EditUserAsync(id);
 
             return View(model);
         }
 
-		[Route("Edit")]
+		[Route("User/Edit")]
 		//[Authorize(Roles = "Администратор, Модератор")]
 		[HttpPost]
-		public async Task<IActionResult> EditUser(EditUserViewModel model)
+		public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
                 await _userService.EditUserAsync(model);
 
-                return RedirectToAction("GetUsers", "User");
+                return RedirectToAction("GetAll", "User");
             }
             else
             {
@@ -140,24 +139,34 @@ namespace MyBlog.App.Controllers
             }
         }
 
-        [Route("GetUsers")]
+        [Route("User/GetAll")]
         [HttpGet]
         //[Authorize(Roles = "Администратор, Модератор")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetUsersAsync();
 
             return View(users);
         }
 
-        [Route("GetUser")]
+        [Route("User/Get")]
         //[Authorize(Roles = "Администратор, Модератор")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var model = await _userService.GetUserAsync(id);
 
             return View(model);
         }
 
+        [Route("User/Delete")]
+        //[Authorize(Roles = "Администратор")]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var account = await _userService.GetUserAsync(id);
+            await _userService.DeleteUserAsync(id);
+
+            return RedirectToAction("GetAll", "User");
+        }
     }
 }

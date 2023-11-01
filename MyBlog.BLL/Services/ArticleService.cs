@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using MyBlog.BLL.Services.Interfaces;
 using MyBlog.BLL.ViewModels.Articles.Request;
+using MyBlog.BLL.ViewModels.Articles.Response;
 using MyBlog.BLL.ViewModels.Tags.Response;
 using MyBlog.Data.Models.Articles;
 using MyBlog.Data.Models.Comments;
@@ -83,16 +84,19 @@ namespace MyBlog.BLL.Services
         public async Task DeleteArticleAsync(int id)
         {
             var article = await _articleRepository.GetByIdAsync(id);
-            _articleRepository.DeleteAsync(article);
+            await _articleRepository.DeleteAsync(article);
         }
 
-        public async Task<List<Article>> GetAllArticlesAsync()
+        public async Task<ArticlesViewModel> GetAllArticlesAsync()
         {
-            return await _articleRepository.GetAllAsync();
+            var articlesModel = new ArticlesViewModel();
+            articlesModel.Articles = await _articleRepository.GetAllAsync();
+            return articlesModel; 
         }
 
-        public async Task<Article> ShowArticleAsync(int id)
+        public async Task<ArticleViewModel> GetArticleAsync(int id)
         {
+
             var article = await _articleRepository.GetByIdAsync(id);
             var user = await _userService.FindByIdAsync(article.UserId.ToString());
             var comments = _commentRepository.GetByArticleIdAsync(article.Id);
@@ -106,8 +110,20 @@ namespace MyBlog.BLL.Services
             {
                 //article.UserId = user.Id;
             }
-            
-            return article;
+
+            var articleModel = new ArticleViewModel()
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Content = article.Content,
+                CreatedDate = article.CreatedDate,
+                AuthorId = article.UserId,
+                AuthorName = article.User.UserName,
+                Tags = article.Tags,
+                Comments = article.Comments
+            };
+
+            return articleModel;
         }
 
         public async Task<EditArticleViewModel> UpdateArticleAsync(int id)

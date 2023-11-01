@@ -40,7 +40,7 @@ namespace MyBlog.Data
             //  .IsRequired();
 
             builder.Entity<Comment>()
-            .ToTable("comments")
+            .ToTable("Comments")
             .HasOne(a => a.User)
             .WithMany(b => b.Comments)
             .HasForeignKey(c => c.UserId)

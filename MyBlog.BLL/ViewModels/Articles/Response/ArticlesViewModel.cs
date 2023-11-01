@@ -5,8 +5,8 @@ namespace MyBlog.BLL.ViewModels.Articles.Response
     /// <summary>
     /// Модель списка статей
     /// </summary>
-    public class ShowArticlesViewModel
+    public class ArticlesViewModel
     {
-        public List<Article> Article { get; set; } = new List<Article>();
+        public List<Article> Articles { get; set; } = new List<Article>();
     }
 }

@@ -77,6 +77,10 @@ namespace MyBlog.BLL.Services
             {
                 user.Lastname = model.Lastname;
             }
+            if (model.Email != null)
+            {
+                user.Email = model.Email;
+            }
             if (model.NewPassword != null)
             {
                 user.PasswordHash = _userService.PasswordHasher.HashPassword(user, model.NewPassword);
@@ -110,6 +114,7 @@ namespace MyBlog.BLL.Services
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
                 Login = user.UserName,
+                Email = user.Email,
                 NewPassword = string.Empty,
                 Id = user.Id,
                 Roles = allRolesName.Select(r => new RoleViewModel() { Id = r.Id, Name = r.Name }).ToList(),

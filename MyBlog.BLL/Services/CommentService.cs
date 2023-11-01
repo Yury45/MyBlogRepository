@@ -18,21 +18,23 @@ namespace MyBlog.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly CommentRepository _commentRepository;
 
-        public CommentService(IUnitOfWork unitOfWork,IMapper mapper)
+        public CommentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _commentRepository = (CommentRepository)unitOfWork.GetRepository<Comment>();
+            _commentRepository = (CommentRepository)_unitOfWork.GetRepository<Comment>();
         }
 
         public async Task<int> CreateCommentAsync(CreateCommentViewModel model, int userId)
         {
-            var comment = new Comment
+
+			var comment = new Comment
             {
                 Text = model.Content,
                 CreatedDate = DateTime.Now,
                 ArticleId = model.ArticleId,
-                UserId = userId
+                UserId = userId,
+                Author = model.Author
 
             };
             await _commentRepository.CreateAsync(comment);

@@ -27,7 +27,7 @@ namespace MyBlog.BLL.Services
 
         public async Task GenerateDefaultDate()
         {
-            var defaultUser = new RegisterUserViewModel { Login = "Administrator", Email = "admin@gmail.com", Password = "qwert", Firstname = "Admin", Lastname = "Rootovich" };
+            var defaultUser = new RegisterUserViewModel { Login = "Administrator", Email = "admin@gmail.com", Password = "qwert", Firstname = "Administrator", Lastname = "Rootovich"};
             var defaultUser1 = new RegisterUserViewModel { Login = "Moderator", Email = "moderator@gmail.com", Password = "qwert", Firstname = "Moder", Lastname = "Banovich" };
             var defaultUser2 = new RegisterUserViewModel { Login = "User", Email = "user@gmail.com", Password = "qwert", Firstname = "Ivan", Lastname = "Ivanov" };
 

@@ -26,9 +26,9 @@ namespace MyBlog.Data.Repositories
             return await Set.Include(x => x.Article).Include(x => x.User).Where(x => x.ArticleId == articleId).ToListAsync();
         }
 
-        public async Task<List<Comment>> GetByUserIdAsync(int userId)
-        {
-            return await Set.Include(x => x.Article).Include(x => x.User).Where(x => x.UserId == userId).ToListAsync();
-        }
+        //public async Task<List<Comment>> GetByUserIdAsync(int userId)
+        //{
+        //    return await Set.Include(x => x.Article).Include(x => x.User).Where(x => x.UserId == userId).ToListAsync();
+        //}
     }
 }

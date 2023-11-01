@@ -18,7 +18,7 @@ namespace MyBlog.BLL.Services
         private readonly IMapper _mapper;
         private readonly TagRepository _tagRepository;
 
-        public TagService(IUnitOfWork unitOfWork, IRepository<Tag> tagRepository, IMapper mapper)
+        public TagService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

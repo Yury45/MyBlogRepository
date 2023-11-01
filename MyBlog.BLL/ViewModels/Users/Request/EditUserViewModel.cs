@@ -20,7 +20,11 @@ namespace MyBlog.BLL.ViewModels.Users.Request
         [Display(Name = "Логин", Prompt = "Логин")]
         public string? Login { get; set; }
 
-        [DataType(DataType.Password)]
+		[EmailAddress]
+		[Display(Name = "Почта")]
+		public string? Email { get; set; }
+
+		[DataType(DataType.Password)]
         [Display(Name = "Новый пароль")]
         public string? NewPassword { get; set; }
 

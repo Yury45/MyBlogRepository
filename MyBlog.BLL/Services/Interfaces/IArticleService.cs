@@ -40,11 +40,11 @@ namespace MyBlog.BLL.Services.Interfaces
         /// <summary>
         /// Метод получения всех статьи
         /// </summary>
-        Task<List<Article>> GetAllArticlesAsync();
+        Task<ArticlesViewModel> GetAllArticlesAsync();
 
         /// <summary>
         /// Метод показа статьи
         /// </summary>
-        Task<Article> ShowArticleAsync(int id);
+        Task<ArticleViewModel> GetArticleAsync(int id);
     }
 }

@@ -18,7 +18,7 @@
                     <h5>Роли:</h5>
                     @foreach(var role in user.Roles)
                     {
-                            @role
+                        <span>@role</span>
                     }
                     <h5>Посты:</h5>
                 </div>
@@ -26,8 +26,11 @@
             if (User.IsInRole("Администратор"))
             {
             }
-            <a class="btn btn-sm btn-primary" method="get" asp-controller="User" asp-action="GetUser" asp-route-id="@user.Id">Посмотреть профиль</a>
-            <a class="btn btn-sm btn-primary" method="get" asp-controller="User" asp-action="EditUser" asp-route-id="@user.Id">Редактировать профиль</a>
+            <a class="btn btn-sm btn-primary" method="get" asp-controller="User" asp-action="Get" asp-route-id="@user.Id">Посмотреть профиль</a>
+            <a class="btn btn-sm btn-primary" method="get" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Редактировать профиль</a>
+            <form method="post" asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">
+                <input class="btn alert-danger button" type="submit" value="Удалить" />
+            </form>
             <p></p>
         }
     }

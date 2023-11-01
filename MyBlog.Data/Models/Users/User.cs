@@ -21,7 +21,6 @@ namespace MyBlog.Data.Models.Users
 
         public List<Article> Articles { get; set; } = new();
         public List<Comment> Comments { get; set; } = new();
-        //public List<Role> Roles { get; set; } = new();
 
         public User()
         {
