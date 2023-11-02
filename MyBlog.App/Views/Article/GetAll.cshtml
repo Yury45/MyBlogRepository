@@ -14,20 +14,25 @@
         {
             <div class="card w-75">
                 <div class="card-body">
-                    <h5 class="card-title">@article.Id</h5>
-                    <h5 class="card-title">@article.User.Email</h5>
-                    <h5 class="card-title">@article.Title</h5>
-                    @foreach (var tag in article.Tags)
-                    {
-                        <span>@tag.Name</span>
-                    }
+                    <h5 class="card-title" hidden >@article.Id</h5>
+                    <h5 class="card-title">Author: @article.User.Firstname @article.User.Lastname</h5>
+                    <h5 class="card-title">Title: @article.Title</h5>
+                    <h5 class="card-title">Tags:
+                        @foreach (var tag in article.Tags)
+                        {
+                            <span>@tag.Name; </span>
+                        }
+                    </h5>
                 </div>
             </div>
             <a class="btn btn-sm btn-primary" method="get" asp-controller="Article" asp-action="Get" asp-route-id="@article.Id">Посмотреть</a>
-            <a class="btn btn-sm btn-primary" method="get" asp-controller="Article" asp-action="Edit" asp-route-id="@article.Id">Редактировать</a>
-            <form method="post" asp-controller="Article" asp-action="Delete" asp-route-id="@article.Id">
-                <input class="btn alert-danger button" type="submit" value="Удалить" />
-            </form>
+            @if (User.IsInRole("Администратор") || User.IsInRole("Модератор"))
+            {
+                <a class="btn btn-sm btn-primary" method="get" asp-controller="Article" asp-action="Edit" asp-route-id="@article.Id">Редактировать</a>
+                <form method="post" asp-controller="Article" asp-action="Delete" asp-route-id="@article.Id">
+                    <input class="btn alert-danger button" type="submit" value="Удалить" />
+                </form>
+            }
             <p></p>
         }
     }

@@ -9,16 +9,15 @@
             <h5 class="card-title">@Model.FirstName</h5>
             <h5 class="card-title">@Model.LastName</h5>
             <h5 class="card-title">Список ролей: </h5>
-            <hr/>
-            <h5>Роли:</h5>
             @foreach (var role in Model.Roles)
             {
                 <span>@role</span>
             }
+            <hr />
             <h5>Посты:</h5>
             @foreach (var article in Model.Articles)
             {
-                <span>@article.Title</span>
+                <span>@article.Title; </span>
             }
         </div>
     </div>

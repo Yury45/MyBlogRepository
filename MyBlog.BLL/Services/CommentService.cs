@@ -67,9 +67,9 @@ namespace MyBlog.BLL.Services
 
         public async Task DeleteCommentAsync(int id)
         {
-            var comment = _commentRepository.GetByIdAsync(id);
+            var comment = await _commentRepository.GetByIdAsync(id);
 
-            await _commentRepository.DeleteAsync(await comment);
+            await _commentRepository.DeleteAsync(comment);
         }
     }
 }

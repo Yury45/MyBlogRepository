@@ -83,14 +83,16 @@ namespace MyBlog.App.Controllers
         }
 
 		[Route("User/Create")]
-		[HttpGet]
+        [Authorize(Roles = "Администратор")]
+        [HttpGet]
 		public IActionResult Create()
 		{
 			return View();
 		}
 
 		[Route("User/Create")]
-		[HttpPost]
+        [Authorize(Roles = "Администратор")]
+        [HttpPost]
 		public async Task<IActionResult> Create(CreateUserViewModel model)
 		{
 			if (ModelState.IsValid)
@@ -113,7 +115,7 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("User/Edit")]
-        //[Authorize(Roles = "Администратор, Модератор")]
+        [Authorize(Roles = "Администратор, Модератор")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -123,7 +125,7 @@ namespace MyBlog.App.Controllers
         }
 
 		[Route("User/Edit")]
-		//[Authorize(Roles = "Администратор, Модератор")]
+		[Authorize(Roles = "Администратор, Модератор")]
 		[HttpPost]
 		public async Task<IActionResult> Edit(EditUserViewModel model)
         {
@@ -141,7 +143,6 @@ namespace MyBlog.App.Controllers
 
         [Route("User/GetAll")]
         [HttpGet]
-        //[Authorize(Roles = "Администратор, Модератор")]
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetUsersAsync();
@@ -150,7 +151,6 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("User/Get")]
-        //[Authorize(Roles = "Администратор, Модератор")]
         public async Task<IActionResult> Get(int id)
         {
             var model = await _userService.GetUserAsync(id);
@@ -159,7 +159,7 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("User/Delete")]
-        //[Authorize(Roles = "Администратор")]
+        [Authorize(Roles = "Администратор")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

@@ -21,8 +21,10 @@ namespace MyBlog.App.Controllers
 
         [HttpGet]
         [Route("Comment/Create")]
+        [Authorize]
         public IActionResult Create(int articleId)
         {
+            
             var model = new CreateCommentViewModel() { ArticleId = articleId };
 
             return View(model);
@@ -30,6 +32,7 @@ namespace MyBlog.App.Controllers
 
         [HttpPost]
         [Route("Comment/Create")]
+        [Authorize]
         public async Task<IActionResult> CreateComment(CreateCommentViewModel model, int articleId)
         {
             model.ArticleId = articleId;
@@ -41,6 +44,8 @@ namespace MyBlog.App.Controllers
 
         [Route("Comment/Edit")]
         [HttpGet]
+        [Authorize(Roles = "Администратор, Модератор")]
+
         public async Task<IActionResult> Edit(int id)
         {
             var view = await _commentService.EditCommentAsync(id);
@@ -48,9 +53,9 @@ namespace MyBlog.App.Controllers
             return View(view);
         }
 
-        [Authorize]
         [Route("Comment/Edit")]
         [HttpPost]
+        [Authorize(Roles = "Администратор, Модератор")]
         public async Task<IActionResult> Edit(EditCommentViewModel model)
         {
             if (ModelState.IsValid)
@@ -69,7 +74,7 @@ namespace MyBlog.App.Controllers
 
         [HttpGet]
         [Route("Comment/Delete")]
-        [Authorize(Roles = "Администратор, Модератор, Пользователь")]
+        [Authorize(Roles = "Администратор, Модератор")]
         public async Task<IActionResult> Delete(int id, bool confirm = true)
         {
             if (confirm)
@@ -80,6 +85,7 @@ namespace MyBlog.App.Controllers
 
         [HttpDelete]
         [Route("Comment/Delete")]
+        [Authorize(Roles = "Администратор, Модератор")]
         public async Task<IActionResult> Delete(int id)
         {
             await _commentService.DeleteCommentAsync(id);

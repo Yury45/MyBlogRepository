@@ -32,7 +32,7 @@ namespace MyBlog.App.Controllers
 
 		[Route("Article/Create")]
 		[HttpGet]
-		//[Authorize]
+		[Authorize]
 		public async Task<IActionResult> Create()
 		{
 			var model = await _articleService.CreateArticleAsync();
@@ -41,7 +41,7 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("Article/Create")]
-		//[Authorize]
+		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> Create(CreateArticleViewModel model)
 		{
@@ -60,7 +60,8 @@ namespace MyBlog.App.Controllers
 
 		[Route("Article/Edit")]
 		[HttpGet]
-		public async Task<IActionResult> Edit(int id)
+        [Authorize(Roles = "Администратор, Модератор")]
+        public async Task<IActionResult> Edit(int id)
 		{
 			var model = await _articleService.UpdateArticleAsync(id);
 
@@ -69,8 +70,8 @@ namespace MyBlog.App.Controllers
 
 		[Route("Article/Edit")]
 		[HttpPost]
-		//[Authorize]
-		public async Task<IActionResult> Edit(EditArticleViewModel model, int Id)
+        [Authorize(Roles = "Администратор, Модератор")]
+        public async Task<IActionResult> Edit(EditArticleViewModel model, int Id)
 		{
 			if (string.IsNullOrEmpty(model.Title) || string.IsNullOrEmpty(model.Content))
 			{
@@ -85,7 +86,8 @@ namespace MyBlog.App.Controllers
 
 		[HttpGet]
 		[Route("Article/Delete")]
-		public async Task<IActionResult> Delete(int id, bool confirm = true)
+        [Authorize(Roles = "Администратор, Модератор")]
+        public async Task<IActionResult> Delete(int id, bool confirm = true)
 		{
 			if (confirm)
 				await Delete(id);
@@ -98,8 +100,8 @@ namespace MyBlog.App.Controllers
 		/// </summary>
 		[HttpPost]
 		[Route("Article/Delete")]
-		//[Authorize(Roles = "Администратор, Модератор")]
-		public async Task<IActionResult> Delete(int id)
+        [Authorize(Roles = "Администратор, Модератор")]
+        public async Task<IActionResult> Delete(int id)
 		{
 			await _articleService.DeleteArticleAsync(id);
 

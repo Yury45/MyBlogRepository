@@ -46,7 +46,7 @@
 					{
 						@for (int i = 0; i < Model?.Roles?.Count; i++)
 						{
-							<div style="margin-bottom: 10px">
+							<div style="margin-bottom: 10px"> 
 							@Html.CheckBoxFor(model => model.Roles[i].IsSelected)
 							<input class="form-control" asp-for="Roles[i].Name" readonly="true"/>
 							<input class="form-control" asp-for="Roles[i].Description" value="Base" hidden="true" />
