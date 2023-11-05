@@ -124,7 +124,6 @@ namespace MyBlog.BLL.Services
 
         public async Task<UserViewModel> GetUserAsync(int id)
         {
-            //return await _userService.FindByIdAsync(id.ToString());
             var user = await _userService.FindByIdAsync(id.ToString());
             var userRoles = await _userService.GetRolesAsync(user);
             var userArticles = await _articleRepository.GetByUserId(user.Id);
