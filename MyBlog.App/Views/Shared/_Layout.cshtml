@@ -30,25 +30,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="GetAll">Show Users</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="GetAll">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Tag" asp-action="GetAll">Show Tags</a>
-                        </li>
-                        @if (User.IsInRole("Администратор") || User.IsInRole("Модератор"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Create">Create User</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Tag" asp-action="Create">Create Tag</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="GetAll">Show Articles</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="GetAll">Articles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create Article</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tag" asp-action="GetAll">Tags</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="GetAll">Roles</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

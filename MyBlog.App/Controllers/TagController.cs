@@ -16,7 +16,7 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("Tag/Create")]
-        //[Authorize(Roles = "Администратор, Модератор")]
+        [Authorize(Roles = "Администратор, Модератор")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -24,7 +24,7 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("Tag/Create")]
-        //[Authorize(Roles = "Администратор, Модератор")]
+        [Authorize(Roles = "Администратор, Модератор")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateTagViewModel model)
         {
@@ -42,7 +42,7 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("Tag/Edit")]
-        //[Authorize(Roles = "Администратор, Модератор")]
+        [Authorize(Roles = "Администратор, Модератор")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -52,7 +52,7 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("Tag/Edit")]
-        //[Authorize(Roles = "Администратор, Модератор")]
+        [Authorize(Roles = "Администратор, Модератор")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditTagViewModel model, int id)
         {
@@ -69,7 +69,7 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("Tag/Delete")]
-        //[Authorize(Roles = "Администратор, Модератор")]
+        [Authorize(Roles = "Администратор, Модератор")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id, bool isConfirm = true)
         {
@@ -80,7 +80,7 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("Tag/Delete")]
-        //[Authorize(Roles = "Администратор, Модератор")]
+        [Authorize(Roles = "Администратор, Модератор")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -91,7 +91,6 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("Tag/GetAll")]
-        //[Authorize(Roles = "Администратор, Модератор")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -101,7 +100,6 @@ namespace MyBlog.App.Controllers
         }
 
         [Route("Tag/Details")]
-        //[Authorize(Roles = "Администратор, Модератор")]
         [HttpGet]
         public async Task<IActionResult> Get(int id)
         {

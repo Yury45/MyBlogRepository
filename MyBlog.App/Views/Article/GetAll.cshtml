@@ -3,13 +3,16 @@
     ViewData["Title"] = "List of Articles";
 }
 @{
+    <a class="btn btn-sm btn-primary" asp-area="" asp-controller="Article" asp-action="Create">Create Article</a>
+    <p></p>
+    <h5 class="card-title">Все статьи:</h5>
     @if (Model.Articles.Count == 0)
     {
+
         <h5 class="card-title">Нет данных для отображения</h5>
     }
     else
     {
-        <h5 class="card-title">Все статьи:</h5>
         @foreach (var article in @Model.Articles)
         {
             <div class="card w-75">

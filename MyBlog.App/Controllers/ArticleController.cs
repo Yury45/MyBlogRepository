@@ -84,7 +84,7 @@ namespace MyBlog.App.Controllers
 			return RedirectToAction("GetAll", "Article");
 		}
 
-		[HttpGet]
+        [HttpGet]
 		[Route("Article/Delete")]
         [Authorize(Roles = "Администратор, Модератор")]
         public async Task<IActionResult> Delete(int id, bool confirm = true)
@@ -95,9 +95,6 @@ namespace MyBlog.App.Controllers
 			return RedirectToAction("GetAll", "Article");
 		}
 
-		/// <summary>
-		/// [Post] Метод, удаления поста
-		/// </summary>
 		[HttpPost]
 		[Route("Article/Delete")]
         [Authorize(Roles = "Администратор, Модератор")]
@@ -108,9 +105,6 @@ namespace MyBlog.App.Controllers
 			return RedirectToAction("GetAll", "Article");
 		}
 
-		/// <summary>
-		/// [Get] Метод, получения всех постов
-		/// </summary>
 		[HttpGet]
 		[Route("Article/GetAll")]
 		public async Task<IActionResult> GetAll()
