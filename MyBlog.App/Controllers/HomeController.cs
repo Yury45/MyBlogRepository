@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyBlog.BLL.Services.Interfaces;
 using MyBlog.BLL.ViewModels;
@@ -32,13 +33,13 @@ namespace MyBlog.App.Controllers
         }
 
 		[Route("Home/Error")]
-        public IActionResult Error(int? code)
+        public IActionResult Error(int? statusCode = null)
         {
-            if (code.HasValue)
+            if (statusCode.HasValue)
             {
-                if (code == 400 || code == 403 || code == 404)
+                if (statusCode == 400 || statusCode == 403 || statusCode == 404)
                 {
-                    var viewName = code.ToString();
+                    var viewName = statusCode.ToString();
                     return View(viewName);
                 }
                 return View("400");
@@ -50,7 +51,7 @@ namespace MyBlog.App.Controllers
 		/// Status code 400
 		/// </summary>
 		/// <returns>Ошибка 400</returns>
-		[Route("GetException400")]
+		[Route("Home/400")]
 		[HttpGet]
         public IActionResult GetException400()
         {
@@ -68,7 +69,7 @@ namespace MyBlog.App.Controllers
         /// Status code 403
         /// </summary>
         /// <returns>Ошибка 403</returns>
-        [Route("GetException403")]
+        [Route("Home/403")]
         [HttpGet]
         public IActionResult GetException403()
         {
@@ -86,7 +87,7 @@ namespace MyBlog.App.Controllers
         /// Status code 404
         /// </summary>
         /// <returns>Ошибка 404</returns>
-        [Route("GetException404")]
+        [Route("Home/404")]
         [HttpGet]
         public IActionResult GetException404()
         {

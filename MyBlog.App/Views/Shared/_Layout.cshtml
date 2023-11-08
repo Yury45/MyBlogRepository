@@ -24,12 +24,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="GetAll">Users</a>
                         </li>
                         <li class="nav-item">
@@ -45,6 +39,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" asp-controller="User" asp-action="Logout">
+                            <p class="badge link-primary flex-grow-1" style="font-size: 1em; font-weight:500;">@User.Identity.Name</p>
+                            <input class="btn btn-sm btn-primary flex-grow-1" style="margin-top: 1em; margin-bottom: 1em;" type="submit" value="Выйти" />
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="btn btn-sm btn-primary" style="margin: 1em;" asp-controller="User" asp-action="Login">Вход</a>
+                        <a class="btn btn-sm btn-primary" asp-controller="Account" asp-action="Register">Регистрация</a>
+                    }
                 </div>
             </div>
         </nav>

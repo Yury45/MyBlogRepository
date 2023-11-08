@@ -16,7 +16,7 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("Role/Create")]
-		//[Authorize(Roles = "Администратор, Модератор")]
+		[Authorize(Roles = "Администратор, Модератор")]
 		[HttpGet]
 		public IActionResult Create()
 		{
@@ -24,7 +24,7 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("Role/Create")]
-		//[Authorize(Roles = "Администратор, Модератор")]
+		[Authorize(Roles = "Администратор, Модератор")]
 		[HttpPost]
 		public async Task<IActionResult> Create(CreateRoleViewModel model)
 		{
@@ -43,7 +43,7 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("Role/Edit")]
-		//[Authorize(Roles = "Администратор, Модератор")]
+		[Authorize(Roles = "Администратор, Модератор")]
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
@@ -54,7 +54,7 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("Role/Edit")]
-		//Authorize(Roles = "Администратор, Модератор")]
+		[Authorize(Roles = "Администратор, Модератор")]
 		[HttpPost]
 		public async Task<IActionResult> Edit(EditRoleViewModel model)
 		{
@@ -73,7 +73,7 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("Role/Delete")]
-		//[Authorize(Roles = "Администратор, Модератор")]
+		[Authorize(Roles = "Администратор, Модератор")]
 		[HttpGet]
 		public async Task<IActionResult> Delete(int id, bool isConfirm = true)
 		{
@@ -84,7 +84,7 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("Role/Delete")]
-		//[Authorize(Roles = "Администратор, Модератор")]
+		[Authorize(Roles = "Администратор, Модератор")]
 		[HttpPost]
 		public async Task<IActionResult> Delete(int id)
 		{
@@ -94,7 +94,6 @@ namespace MyBlog.App.Controllers
 		}
 
 		[Route("Role/GetAll")]
-		//[Authorize(Roles = "Администратор, Модератор")]
 		[HttpGet]
 		public async Task<IActionResult> GetAll()
 		{

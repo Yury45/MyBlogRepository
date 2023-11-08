@@ -82,6 +82,16 @@ namespace MyBlog.App.Controllers
             return View(model);
         }
 
+		[Route("User/Logout")]
+		[Authorize]
+		[HttpPost]
+		public async Task<IActionResult> Logout()
+		{
+			await _userService.LogoutUserAccount();
+
+			return RedirectToAction("Index", "Home");
+		}
+
 		[Route("User/Create")]
         [Authorize(Roles = "Администратор")]
         [HttpGet]
