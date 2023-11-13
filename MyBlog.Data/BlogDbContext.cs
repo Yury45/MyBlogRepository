@@ -14,7 +14,6 @@ namespace MyBlog.Data
     {
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options) 
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -25,19 +24,6 @@ namespace MyBlog.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            //builder.Ignore<IdentityUserToken<int>>();
-            //builder.Ignore<IdentityUserLogin<int>>();
-
-            //builder.Entity<Article>().ToTable("articles");
-            //builder.Entity<Role>().ToTable("roles").HasKey(x => x.Id);
-            //builder.Entity<Tag>().ToTable("tags");
-            //builder.Entity<User>().ToTable("users");
-
-            //builder.Entity<IdentityUserRole<int>>()
-            //  .HasOne<User>()
-            //  .WithMany()
-            //  .HasForeignKey(ur => ur.UserId)
-            //  .IsRequired();
 
             builder.Entity<Comment>()
             .ToTable("Comments")

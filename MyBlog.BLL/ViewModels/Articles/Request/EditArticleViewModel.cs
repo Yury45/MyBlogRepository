@@ -16,10 +16,12 @@ namespace MyBlog.BLL.ViewModels.Articles.Request
     {
         public int Id { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно для заполнения")]
         [DataType(DataType.Text)]
         [Display(Name = "Заголовок", Prompt = "Заголовок")]
         public string? Title { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Поле обязательно для заполнения")]
         [DataType(DataType.Text)]
         [Display(Name = "Содержание", Prompt = "Содержание")]
         public string? Content { get; set; }

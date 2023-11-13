@@ -15,6 +15,7 @@ namespace MyBlog.BLL.ViewModels.Roles.Request
         /// Описание роли
         /// </summary>
         /// <example>description</example>
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Поле описание обязательно для заполнения")]
         [Display(Name = "Описание роли")]
         public string? Description { get; set; }
     }
