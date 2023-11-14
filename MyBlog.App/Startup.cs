@@ -50,7 +50,10 @@ namespace MyBlog.App
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-			app.UseStatusCodePagesWithRedirects("/Home/{0}");
+			//app.UseStatusCodePagesWithRedirects("/Error/{0}");
+			///app.UseStatusCodePagesWithReExecute("/Error/Default", "?statusCode={0}");
+			app.UseExceptionHandler("/Error/500");
+			app.UseStatusCodePagesWithRedirects("/Error/{0}");
 
 			app.UseEndpoints(endpoints =>
             {

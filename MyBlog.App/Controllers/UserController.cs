@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 using MyBlog.BLL.Services.Interfaces;
 using MyBlog.BLL.ViewModels.Users.Request;
 using MyBlog.Data.Models.Users;
+using NLog;
 
 namespace MyBlog.App.Controllers
 {    /// <summary>
@@ -12,7 +12,8 @@ namespace MyBlog.App.Controllers
      /// </summary>
     public class UserController : Controller
     {
-        private readonly IUserService _userService;
+		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+		private readonly IUserService _userService;
         private readonly IRoleService _roleService;
 
         public UserController(SignInManager<User> signInManager, IUserService userService, IRoleService roleService)
@@ -38,9 +39,8 @@ namespace MyBlog.App.Controllers
 
                 if (result.Succeeded)
                 {
-                    //return RedirectToAction("GetAccounts", "Account");
-                    Console.WriteLine($"Осуществлена регистрация пользователя с адресом - {model.Email}");
-                    return RedirectToAction("Index", "Home");
+					Log.Info($"Регистрация нового пользователя {model.Login}!");
+					return RedirectToAction("Index", "Home");
 
                 }
                 else
@@ -48,8 +48,10 @@ namespace MyBlog.App.Controllers
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+						Log.Error($"Ошибка при регистрации нового пользователя: {error.Description}!");
+
+					}
+				}
             }
             return View(model);
         }
@@ -58,7 +60,9 @@ namespace MyBlog.App.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+			Log.Info($"Запрошена форма входа.");
+
+			return View();
         }
 
         [Route("User/Login")]
@@ -72,13 +76,17 @@ namespace MyBlog.App.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+					Log.Info($"User --- {User.Identity.Name} выполнен вход в систему.");
+
+					return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-                }
-            }
+					Log.Error($"Ошибка при входе в систему!");
+
+				}
+			}
             return View(model);
         }
 
@@ -88,6 +96,7 @@ namespace MyBlog.App.Controllers
 		public async Task<IActionResult> Logout()
 		{
 			await _userService.LogoutUserAccount();
+			Log.Info($"User --- {User.Identity.Name} выполнен выход из системы.");
 
 			return RedirectToAction("Index", "Home");
 		}
@@ -97,6 +106,8 @@ namespace MyBlog.App.Controllers
         [HttpGet]
 		public IActionResult Create()
 		{
+			Log.Info($"User --- {User.Identity.Name}: Запрошена форма создания пользователя.");
+
 			return View();
 		}
 
@@ -111,6 +122,8 @@ namespace MyBlog.App.Controllers
 
 				if (result.Succeeded)
 				{
+					Log.Info($"User --- {User.Identity.Name}: Пользователь {model.Login} создан.");
+
 					return RedirectToAction("GetAll", "User");
 				}
 				else
@@ -118,6 +131,8 @@ namespace MyBlog.App.Controllers
 					foreach (var error in result.Errors)
 					{
 						ModelState.AddModelError(string.Empty, error.Description);
+						Log.Error($"User --- {User.Identity.Name}: Ошибка при создании пользователя.");
+
 					}
 				}
 			}
@@ -130,8 +145,9 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var model = await _userService.EditUserAsync(id);
+			Log.Info($"User --- {User.Identity.Name}: Запрошена форма редактирования пользователя {id}.");
 
-            return View(model);
+			return View(model);
         }
 
 		[Route("User/Edit")]
@@ -142,12 +158,15 @@ namespace MyBlog.App.Controllers
             if (ModelState.IsValid)
             {
                 await _userService.EditUserAsync(model);
+				Log.Info($"User --- {User.Identity.Name}: Пользователь {model.Id} обновлен.");
 
-                return RedirectToAction("GetAll", "User");
+				return RedirectToAction("GetAll", "User");
             }
             else
             {
-                return View(model);
+				Log.Error($"User --- {User.Identity.Name}: Ошибка при обновлении пользователя.");
+
+				return View(model);
             }
         }
 
@@ -156,16 +175,19 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetUsersAsync();
+			Log.Info($"User --- {User.Identity.Name}: Запрошен список всех пользователей.");
 
-            return View(users);
+			return View(users);
         }
 
         [Route("User/Get")]
         public async Task<IActionResult> Get(int id)
         {
             var model = await _userService.GetUserAsync(id);
+			Log.Info($"User --- {User.Identity.Name}: Просмотрена информация пользователя {id}.");
 
-            return View(model);
+
+			return View(model);
         }
 
         [Route("User/Delete")]
@@ -175,8 +197,9 @@ namespace MyBlog.App.Controllers
         {
             var account = await _userService.GetUserAsync(id);
             await _userService.DeleteUserAsync(id);
+			Log.Info($"User --- {User.Identity.Name}: Пользователь {id} удален.");
 
-            return RedirectToAction("GetAll", "User");
+			return RedirectToAction("GetAll", "User");
         }
     }
 }
