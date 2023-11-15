@@ -3,10 +3,12 @@ using MyBlog.Data.Models.Users;
 using MyBlog.Data;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.App.Extentions;
+using FluentValidation.AspNetCore;
+using MyBlog.BLL.Validators.Users;
 
 namespace MyBlog.App
 {
-	public class Startup
+    public class Startup
     {
         public IConfiguration Configuration { get; }
 
@@ -18,8 +20,8 @@ namespace MyBlog.App
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            
 
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EditUserViewModelValidator>());
             services.AddDbContext<BlogDbContext>(option => option.UseSqlServer(connectionString), ServiceLifetime.Scoped)
                 .AddUnitOfWork()
 				.AddRepositories()
@@ -50,12 +52,12 @@ namespace MyBlog.App
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-			//app.UseStatusCodePagesWithRedirects("/Error/{0}");
-			///app.UseStatusCodePagesWithReExecute("/Error/Default", "?statusCode={0}");
-			app.UseExceptionHandler("/Error/500");
-			app.UseStatusCodePagesWithRedirects("/Error/{0}");
+            app.UseStatusCodePagesWithRedirects("/Error/Default?statusCode={0}");
 
-			app.UseEndpoints(endpoints =>
+            //app.UseExceptionHandler("/Error/500");
+            //app.UseStatusCodePagesWithRedirects("/Error/{0}");
+
+            app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",

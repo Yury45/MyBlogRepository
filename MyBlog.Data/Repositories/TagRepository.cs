@@ -1,15 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyBlog.Data.Models.Articles;
 using MyBlog.Data.Models.Tags;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyBlog.Data.Repositories
 {
-    public class TagRepository : Repository<Tag>
+	public class TagRepository : Repository<Tag>
     {
         public TagRepository(BlogDbContext context) : base(context)
         {

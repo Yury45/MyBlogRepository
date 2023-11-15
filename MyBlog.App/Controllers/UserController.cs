@@ -157,7 +157,7 @@ namespace MyBlog.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _userService.EditUserAsync(model);
+				await _userService.EditUserAsync(model);
 				Log.Info($"User --- {User.Identity.Name}: Пользователь {model.Id} обновлен.");
 
 				return RedirectToAction("GetAll", "User");

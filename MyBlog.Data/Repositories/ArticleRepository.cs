@@ -1,15 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBlog.Data.Models.Articles;
-using MyBlog.Data.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyBlog.Data.Repositories
 {
-    public class ArticleRepository : Repository<Article>
+	public class ArticleRepository : Repository<Article>
     {
         public ArticleRepository(BlogDbContext context) : base(context)
         {

@@ -101,7 +101,8 @@ namespace MyBlog.BLL.Services
                     await _userService.RemoveFromRoleAsync(user, roleName);
                 }
             }
-            var result = await _userService.UpdateAsync(user);
+			if (!model.Roles.Any(x => x.IsSelected == true)) await _userService.AddToRoleAsync(user, "Пользователь");
+			var result = await _userService.UpdateAsync(user);
             return result;
         }
 

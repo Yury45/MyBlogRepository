@@ -35,17 +35,20 @@ namespace MyBlog.BLL.Services
             var user2 = _mapper.Map<User>(defaultUser1);
             var user3 = _mapper.Map<User>(defaultUser2);
 
-            var userRole = new Role() { Name = "Пользователь", Description = "Стандартный набор возможностей" };
+			var userRole = new Role() { Name = "Пользователь", Description = "Стандартный набор возможностей" };
             var moderRole = new Role() { Name = "Модератор", Description = "Расширенный набор возможностей - позволяет редактировать контент" };
             var adminRole = new Role() { Name = "Администратор", Description = "Роль с максимальным уровнем доступа" };
 
-            await _userService.CreateAsync(user, defaultUser.Password);
-            await _userService.CreateAsync(user2, defaultUser1.Password);
-            await _userService.CreateAsync(user3, defaultUser2.Password);
+			await _userService.CreateAsync(user, defaultUser.Password);
+			await _userService.CreateAsync(user2, defaultUser1.Password);
+			await _userService.CreateAsync(user3, defaultUser2.Password);
 
-            await _roleService.CreateAsync(userRole);
-            await _roleService.CreateAsync(moderRole);
-            await _roleService.CreateAsync(adminRole);
+			if (!_roleService.Roles.Contains(userRole)) 
+                await _roleService.CreateAsync(userRole);
+			if (!_roleService.Roles.Contains(moderRole))
+                await _roleService.CreateAsync(moderRole);
+			if (!_roleService.Roles.Contains(adminRole)) 
+                await _roleService.CreateAsync(adminRole);
 
             await _userService.AddToRoleAsync(user, adminRole.Name);
             await _userService.AddToRoleAsync(user2, moderRole.Name);

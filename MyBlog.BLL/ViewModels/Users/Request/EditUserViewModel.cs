@@ -8,15 +8,15 @@ namespace MyBlog.BLL.ViewModels.Users.Request
     /// </summary>
     public class EditUserViewModel
     {
-        [DataType(DataType.Text)]
+		[DataType(DataType.Text)]
         [Display(Name = "Имя", Prompt = "Имя")]
         public string? Firstname { get; set; }
 
-        [DataType(DataType.Text)]
+		[DataType(DataType.Text)]
         [Display(Name = "Фамилия", Prompt = "Фамилия")]
         public string? Lastname { get; set; }
 
-        [DataType(DataType.Text)]
+		[DataType(DataType.Text)]
         [Display(Name = "Логин", Prompt = "Логин")]
         public string? Login { get; set; }
 

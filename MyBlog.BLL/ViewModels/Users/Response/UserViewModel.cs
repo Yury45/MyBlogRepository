@@ -1,12 +1,11 @@
 ﻿using MyBlog.Data.Models.Articles;
-using MyBlog.Data.Models.Roles;
 
 namespace MyBlog.BLL.ViewModels.Users.Response
 {
-    /// <summary>
-    /// Модель пользователя
-    /// </summary>
-    public class UserViewModel
+	/// <summary>
+	/// Модель пользователя
+	/// </summary>
+	public class UserViewModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

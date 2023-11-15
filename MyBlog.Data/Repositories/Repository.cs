@@ -1,14 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBlog.Data.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyBlog.Data.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+	public class Repository<T> : IRepository<T> where T : class
     {
         protected BlogDbContext _context;
         public DbSet<T> Set { get; private set; }

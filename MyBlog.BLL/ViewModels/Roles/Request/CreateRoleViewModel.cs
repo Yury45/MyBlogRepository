@@ -7,15 +7,9 @@ namespace MyBlog.BLL.ViewModels.Roles.Request
     /// </summary>
     public class CreateRoleViewModel
     {
-        [Required(ErrorMessage = "Укажите название роли!")]
         [Display(Name = "Название роли")]
         public string Name { get; set; }
 
-        /// <summary>
-        /// Описание роли
-        /// </summary>
-        /// <example>description</example>
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Поле описание обязательно для заполнения")]
         [Display(Name = "Описание роли")]
         public string? Description { get; set; }
     }

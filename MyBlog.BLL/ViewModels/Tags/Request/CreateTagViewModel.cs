@@ -9,8 +9,7 @@ namespace MyBlog.BLL.ViewModels.Tags.Request
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Укажите имя тега!")]
-        [Display(Name = "Название")]
+        [Display(Name = "Название тега")]
         public string Name { get ; set; }
     }
 }

@@ -1,14 +1,12 @@
-﻿using MyBlog.BLL.ViewModels.Comments;
-using MyBlog.Data.Models.Comments;
+﻿using MyBlog.Data.Models.Comments;
 using MyBlog.Data.Models.Tags;
-using MyBlog.Data.Models.Users;
 
 namespace MyBlog.BLL.ViewModels.Articles.Response
 {
-    /// <summary>
-    /// Модель статьи
-    /// </summary>
-    public class ArticleViewModel
+	/// <summary>
+	/// Модель статьи
+	/// </summary>
+	public class ArticleViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

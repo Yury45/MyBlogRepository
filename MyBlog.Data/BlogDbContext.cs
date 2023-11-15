@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Data.Models.Articles;
 using MyBlog.Data.Models.Comments;
 using MyBlog.Data.Models.Roles;
 using MyBlog.Data.Models.Tags;
 using MyBlog.Data.Models.Users;
-using System.Reflection.Emit;
 
 namespace MyBlog.Data
 {
-    public class BlogDbContext : IdentityDbContext<User,Role,int>
+	public class BlogDbContext : IdentityDbContext<User,Role,int>
     {
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options) 
         {

@@ -1,17 +1,12 @@
 ﻿using MyBlog.Data.Models.Articles;
 using MyBlog.Data.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyBlog.Data.Models.Comments
 {
-    /// <summary>
-    /// Сущность комментария к статье
-    /// </summary>
-    public class Comment
+	/// <summary>
+	/// Сущность комментария к статье
+	/// </summary>
+	public class Comment
     {
         public int Id { get; set; }
         public string Text { get; set; }

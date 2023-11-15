@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 
 
@@ -12,19 +13,12 @@ namespace MyBlog.App.Controllers
         public ErrorController(){ }
 
 		[Route("Error/Default")]
-        public IActionResult Error(int? statusCode = null)
-        {
-            if (statusCode.HasValue)
-            {
-                if (statusCode == 400 || statusCode == 403 || statusCode == 404)
-                {
-                    var viewName = statusCode.ToString();
-                    return View(viewName);
-                }
-                return View("400");
-            }
-            return View("400");
-        }
+		public IActionResult Index(int statusCode)
+		{
+			var feature = this.HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+
+			return View(statusCode.ToString());
+		}
 
 		/// <summary>
 		/// Status code 400

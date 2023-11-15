@@ -1,14 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using MyBlog.Data.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyBlog.Data.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+	public class UnitOfWork : IUnitOfWork
     {
         private BlogDbContext _context;
 

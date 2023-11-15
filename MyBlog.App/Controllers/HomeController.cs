@@ -32,7 +32,8 @@ namespace MyBlog.App.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+			Log.Info($"User - {User.Identity.Name}: Переход на страницу Privacy.");
+			return View();
         }
 	}
 }

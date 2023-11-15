@@ -1,17 +1,11 @@
-﻿using MyBlog.Data.Models.Roles;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MyBlog.BLL.ViewModels.Roles.Response
 {
-    /// <summary>
-    /// Модель одной роли
-    /// </summary>
-    public class RoleViewModel
+	/// <summary>
+	/// Модель одной роли
+	/// </summary>
+	public class RoleViewModel
     {
         public int Id { get; set; }
 

@@ -9,36 +9,36 @@
 
 <h2>Регистрация нового пользователя</h2>
 <form method="post" asp-controller="User" asp-action="Register">
-    <div asp-validation-summary="ModelOnly"></div>
+    <div asp-validation-summary="ModelOnly"/>
     <div>
         <label asp-for="Firstname"></label><br />
         <input asp-for="Firstname" />
-        <span asp-validation-for="Firstname"></span>
+        <span asp-validation-for="Firstname" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="Lastname"></label><br />
         <input asp-for="Lastname" />
-        <span asp-validation-for="Lastname"></span>
+        <span asp-validation-for="Lastname" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="Login"></label><br />
         <input asp-for="Login" />
-        <span asp-validation-for="Login"></span>
+        <span asp-validation-for="Login" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="Email"></label><br />
         <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="Password"></label><br />
         <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="PasswordReg"></label><br />
         <input asp-for="PasswordReg" />
-        <span asp-validation-for="PasswordReg"></span>
+        <span asp-validation-for="PasswordReg" class="text-danger"></span>
     </div>
     <div>
         <input class="btn btn-sm btn-primary" type="submit" value="Регистрация" />
