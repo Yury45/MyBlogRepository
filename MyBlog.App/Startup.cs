@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyBlog.App.Extentions;
 using FluentValidation.AspNetCore;
 using MyBlog.BLL.Validators.Users;
+using MyBlog.App.Extentions.ExceptionHandler;
 
 namespace MyBlog.App
 {
@@ -42,6 +43,8 @@ namespace MyBlog.App
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ExceptionHandlingExtention>();
+
 			if (!env.IsDevelopment())
             {
 				app.UseExceptionHandler("/Home/Error");
@@ -54,17 +57,12 @@ namespace MyBlog.App
             app.UseAuthorization();
             app.UseStatusCodePagesWithRedirects("/Error/Default?statusCode={0}");
 
-            //app.UseExceptionHandler("/Error/500");
-            //app.UseStatusCodePagesWithRedirects("/Error/{0}");
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
 		}
-
     }
 }

@@ -10,7 +10,6 @@ namespace MyBlog.App.Controllers
 {
     public class TagController : Controller
     {
-		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 		private readonly ITagService _tagService;
 
         public TagController(ITagService tagService)
@@ -23,8 +22,6 @@ namespace MyBlog.App.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-			Log.Info($"User - {User.Identity.Name}: Запрошена форма создания тега.");
-
 			return View();
         }
 
@@ -36,15 +33,11 @@ namespace MyBlog.App.Controllers
             if (ModelState.IsValid)
             {
                 var tagId = _tagService.CreateTagAsync(model);
-				Log.Info($"User - {User.Identity.Name}: Создан новый тег {model.Name}");
-
 
 				return RedirectToAction("GetAll", "User");
             }
             else
             {
-				Log.Error($"User - {User.Identity.Name}: Ошибка при создании тега.");
-
 				return View(model);
             }
         }
@@ -55,8 +48,6 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var view = await _tagService.UpdateTagAsync(id);
-			Log.Info($"User - {User.Identity.Name}: Запрос на изменения тега {id}.");
-
 
 			return View(view);
         }
@@ -69,14 +60,11 @@ namespace MyBlog.App.Controllers
             if (ModelState.IsValid)
             {
                 await _tagService.UpdateTagAsync(model, id);
-				Log.Info($"User - {User.Identity.Name}: Тег {id} обновлен.");
 
 				return RedirectToAction("GetAll", "Tag");
             }
             else
             {
-				Log.Error($"User - {User.Identity.Name}: Ошибка при обновлении тега.");
-
 				return View(model);
             }
         }
@@ -88,7 +76,6 @@ namespace MyBlog.App.Controllers
         {
             if (isConfirm)
                 await Delete(id);
-			Log.Info($"User - {User.Identity.Name}: Тег {id} удален.");
 
 			return RedirectToAction("GetAll", "Tag");
         }
@@ -100,7 +87,6 @@ namespace MyBlog.App.Controllers
         {
             var tag = await _tagService.GetTagByIdAsync(id);
             await _tagService.DeleteTagAsync(tag);
-			Log.Info($"User - {User.Identity.Name}: Тег {id} удален.");
 
 			return RedirectToAction("GetAll", "Tag");
         }
@@ -110,8 +96,6 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> GetAll()
         {
             var tags = await _tagService.GetAllTagsAsync();
-			Log.Info($"User - {User.Identity.Name}: Запрошен список тегов.");
-
 
 			return View(tags);
         }
@@ -121,8 +105,6 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var tags = await _tagService.GetTagByIdAsync(id);
-			Log.Info($"User - {User.Identity.Name}: Запрошена информация по тегу {id}.");
-
 
 			return View(tags);
         }

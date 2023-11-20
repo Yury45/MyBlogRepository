@@ -8,16 +8,19 @@ namespace MyBlog.App.Controllers
 {
     public class ErrorController : Controller
     {
-		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
-
         public ErrorController(){ }
 
 		[Route("Error/Default")]
 		public IActionResult Index(int statusCode)
 		{
-			var feature = this.HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+			if (statusCode == 400 || statusCode == 403 || statusCode == 404)
+            {
+				var feature = this.HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
 
-			return View(statusCode.ToString());
+				return View(statusCode.ToString());
+			}
+
+            else return View("500");
 		}
 
 		/// <summary>
@@ -30,8 +33,6 @@ namespace MyBlog.App.Controllers
         {
             try
             {
-				Log.Error($"User - {User.Identity.Name}: Сгенерирована ошибка 400.");
-
 				throw new HttpRequestException("400");
             }
             catch
@@ -50,8 +51,6 @@ namespace MyBlog.App.Controllers
         {
             try
             {
-				Log.Error($"User - {User.Identity.Name}: Сгенерирована ошибка 403.");
-
 				throw new HttpRequestException("403");
             }
             catch
@@ -70,8 +69,6 @@ namespace MyBlog.App.Controllers
         {
             try
             {
-				Log.Error($"User - {User.Identity.Name}: Сгенерирована ошибка 404.");
-
 				throw new HttpRequestException("404");
             }
             catch
@@ -90,8 +87,6 @@ namespace MyBlog.App.Controllers
 		{
 			try
 			{
-				Log.Error($"User - {User.Identity.Name}: Сгенерирована ошибка 500.");
-
 				throw new HttpRequestException("500");
 			}
 			catch

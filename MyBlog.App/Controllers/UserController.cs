@@ -12,7 +12,6 @@ namespace MyBlog.App.Controllers
      /// </summary>
     public class UserController : Controller
     {
-		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 		private readonly IUserService _userService;
         private readonly IRoleService _roleService;
 
@@ -39,17 +38,13 @@ namespace MyBlog.App.Controllers
 
                 if (result.Succeeded)
                 {
-					Log.Info($"Регистрация нового пользователя {model.Login}!");
 					return RedirectToAction("Index", "Home");
-
                 }
                 else
                 {
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
-						Log.Error($"Ошибка при регистрации нового пользователя: {error.Description}!");
-
 					}
 				}
             }
@@ -60,8 +55,6 @@ namespace MyBlog.App.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-			Log.Info($"Запрошена форма входа.");
-
 			return View();
         }
 
@@ -76,15 +69,11 @@ namespace MyBlog.App.Controllers
 
                 if (result.Succeeded)
                 {
-					Log.Info($"User --- {User.Identity.Name} выполнен вход в систему.");
-
 					return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-					Log.Error($"Ошибка при входе в систему!");
-
 				}
 			}
             return View(model);
@@ -96,7 +85,6 @@ namespace MyBlog.App.Controllers
 		public async Task<IActionResult> Logout()
 		{
 			await _userService.LogoutUserAccount();
-			Log.Info($"User --- {User.Identity.Name} выполнен выход из системы.");
 
 			return RedirectToAction("Index", "Home");
 		}
@@ -106,8 +94,6 @@ namespace MyBlog.App.Controllers
         [HttpGet]
 		public IActionResult Create()
 		{
-			Log.Info($"User --- {User.Identity.Name}: Запрошена форма создания пользователя.");
-
 			return View();
 		}
 
@@ -122,8 +108,6 @@ namespace MyBlog.App.Controllers
 
 				if (result.Succeeded)
 				{
-					Log.Info($"User --- {User.Identity.Name}: Пользователь {model.Login} создан.");
-
 					return RedirectToAction("GetAll", "User");
 				}
 				else
@@ -131,8 +115,6 @@ namespace MyBlog.App.Controllers
 					foreach (var error in result.Errors)
 					{
 						ModelState.AddModelError(string.Empty, error.Description);
-						Log.Error($"User --- {User.Identity.Name}: Ошибка при создании пользователя.");
-
 					}
 				}
 			}
@@ -145,7 +127,6 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var model = await _userService.EditUserAsync(id);
-			Log.Info($"User --- {User.Identity.Name}: Запрошена форма редактирования пользователя {id}.");
 
 			return View(model);
         }
@@ -158,14 +139,11 @@ namespace MyBlog.App.Controllers
             if (ModelState.IsValid)
             {
 				await _userService.EditUserAsync(model);
-				Log.Info($"User --- {User.Identity.Name}: Пользователь {model.Id} обновлен.");
 
 				return RedirectToAction("GetAll", "User");
             }
             else
             {
-				Log.Error($"User --- {User.Identity.Name}: Ошибка при обновлении пользователя.");
-
 				return View(model);
             }
         }
@@ -175,7 +153,6 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetUsersAsync();
-			Log.Info($"User --- {User.Identity.Name}: Запрошен список всех пользователей.");
 
 			return View(users);
         }
@@ -184,8 +161,6 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var model = await _userService.GetUserAsync(id);
-			Log.Info($"User --- {User.Identity.Name}: Просмотрена информация пользователя {id}.");
-
 
 			return View(model);
         }
@@ -197,7 +172,6 @@ namespace MyBlog.App.Controllers
         {
             var account = await _userService.GetUserAsync(id);
             await _userService.DeleteUserAsync(id);
-			Log.Info($"User --- {User.Identity.Name}: Пользователь {id} удален.");
 
 			return RedirectToAction("GetAll", "User");
         }

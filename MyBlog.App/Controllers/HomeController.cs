@@ -14,7 +14,6 @@ namespace MyBlog.App.Controllers
 {
     public class HomeController : Controller
     {
-		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 		private readonly IDataDefaultService _dataService;
 
         public HomeController(IDataDefaultService dataService)
@@ -25,14 +24,12 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> Index()
         {
             await _dataService.GenerateDefaultDate();
-			Log.Info($"User - {User.Identity.Name}: Сгенерированы стартовые данные.");
 
 			return View();
         }
 
         public IActionResult Privacy()
         {
-			Log.Info($"User - {User.Identity.Name}: Переход на страницу Privacy.");
 			return View();
         }
 	}

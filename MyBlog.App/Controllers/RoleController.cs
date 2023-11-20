@@ -10,7 +10,6 @@ namespace MyBlog.App.Controllers
 {
 	public class RoleController : Controller
 	{
-		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 		private readonly IRoleService _roleService;
 
 		public RoleController(IRoleService roleService)
@@ -23,8 +22,6 @@ namespace MyBlog.App.Controllers
 		[HttpGet]
 		public IActionResult Create()
 		{
-			Log.Info($"User - {User.Identity.Name}: Запрошена форма создания Роли.");
-
 			return View();
 		}
 
@@ -36,16 +33,12 @@ namespace MyBlog.App.Controllers
 			if (ModelState.IsValid)
 			{
 				var roleId = await _roleService.CreateRoleAsync(model);
-				Log.Info($"User - {User.Identity.Name}: Добавлена новая Роль {model.Name}.");
-
 
 				return RedirectToAction("GetAll", "Role");
 			}
 			else
 			{
 				ModelState.AddModelError("", "Некорректные данные");
-				Log.Error($"User - {User.Identity.Name}: Ошибка при добавлении Роли {model.Name}!");
-
 
 				return View(model);
 			}
@@ -58,8 +51,6 @@ namespace MyBlog.App.Controllers
 		{
 			var role = _roleService.GetRoleAsync(id);
 			var view = new EditRoleViewModel { Id = id, Description = role.Result?.Description, Name = role.Result?.Name };
-			Log.Info($"User - {User.Identity.Name}: Запрошена форма изменения Роли {id}.");
-
 
 			return View(view);
 		}
@@ -72,15 +63,12 @@ namespace MyBlog.App.Controllers
 			if (ModelState.IsValid)
 			{
 				await _roleService.EditRoleAsync(model);
-				Log.Info($"User - {User.Identity.Name}: Изменена Роль {model.Name}.");
 
 				return RedirectToAction("GetAll", "Role");
 			}
 			else
 			{
 				ModelState.AddModelError("", "Некорректные данные");
-				Log.Error($"User - {User.Identity.Name}: Ошибка при изменении Роли {model.Name}!");
-
 
 				return View(model);
 			}
@@ -93,7 +81,6 @@ namespace MyBlog.App.Controllers
 		{
 			if (isConfirm)
 				await Delete(id);
-			Log.Info($"User - {User.Identity.Name}: Удалена Роль {id}.");
 
 			return RedirectToAction("GetAll", "Role");
 		}
@@ -104,7 +91,6 @@ namespace MyBlog.App.Controllers
 		public async Task<IActionResult> Delete(int id)
 		{
 			await _roleService.DeleteRoleAsync(id);
-			Log.Info($"User - {User.Identity.Name}: Удалена Роль {id}.");
 
 			return RedirectToAction("GetAll", "Role");
 		}
@@ -114,7 +100,7 @@ namespace MyBlog.App.Controllers
 		public async Task<IActionResult> GetAll()
 		{
 			var roles = await _roleService.GetRolesAsync();
-			Log.Info($"User - {User.Identity.Name}: Запрошен список ролей.");
+ 
 			return View(roles);
 		}
 	}

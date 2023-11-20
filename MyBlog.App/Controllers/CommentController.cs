@@ -13,7 +13,6 @@ namespace MyBlog.App.Controllers
 {
     public class CommentController : Controller
     {
-		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 		private readonly ICommentService _commentService;
         private readonly UserManager<User> _userManager;
 
@@ -30,7 +29,6 @@ namespace MyBlog.App.Controllers
         {
             
             var model = new CreateCommentViewModel() { ArticleId = articleId };
-			Log.Info($"User - {User.Identity.Name}: Запрошена форма коментария к статье {articleId}.");
 
 			return View(model);
         }
@@ -43,7 +41,6 @@ namespace MyBlog.App.Controllers
             model.ArticleId = articleId;
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
             var comment = _commentService.CreateCommentAsync(model, user.Id);
-			Log.Info($"User - {User.Identity.Name}: Добавлен коментарий к статье {articleId}.");
 
 			return RedirectToAction("GetAll", "Article");
         }
@@ -55,7 +52,6 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var view = await _commentService.EditCommentAsync(id);
-			Log.Info($"User - {User.Identity.Name}: Запрошена форма изменения коментария {id}.");
 
 			return View(view);
         }
@@ -68,14 +64,12 @@ namespace MyBlog.App.Controllers
             if (ModelState.IsValid)
             {
                 await _commentService.EditCommentAsync(model, model.Id);
-				Log.Info($"User - {User.Identity.Name}: Коментарий изменен {model.Id}.");
 
 				return RedirectToAction("GetAll", "Article");
             }
             else
             {
                 ModelState.AddModelError("", "Некорректные данные");
-				Log.Error($"User - {User.Identity.Name}: Ошибка при изменении коментария {model.Id}.");
 
 				return View(model);
             }
@@ -88,8 +82,6 @@ namespace MyBlog.App.Controllers
         {
             if (confirm)
                 await Delete(id);
-			Log.Info($"User - {User.Identity.Name}: Коментарий удален {id}.");
-
 
 			return RedirectToAction("GetAll", "Article");
         }
@@ -100,8 +92,6 @@ namespace MyBlog.App.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _commentService.DeleteCommentAsync(id);
-			Log.Info($"User - {User.Identity.Name}: Коментарий удален {id}.");
-
 
 			return RedirectToAction("GetAll", "Article");
         }
