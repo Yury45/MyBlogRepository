@@ -32,27 +32,36 @@ namespace MyBlog.BLL.Services
             var defaultUser2 = new RegisterUserViewModel { Login = "User", Email = "user@gmail.com", Password = "qwert", Firstname = "Ivan", Lastname = "Ivanov" };
 
             var user = _mapper.Map<User>(defaultUser);
-            var user2 = _mapper.Map<User>(defaultUser1);
-            var user3 = _mapper.Map<User>(defaultUser2);
+            var user1 = _mapper.Map<User>(defaultUser1);
+            var user2 = _mapper.Map<User>(defaultUser2);
 
 			var userRole = new Role() { Name = "Пользователь", Description = "Стандартный набор возможностей" };
-            var moderRole = new Role() { Name = "Модератор", Description = "Расширенный набор возможностей - позволяет редактировать контент" };
+			var moderRole = new Role() { Name = "Модератор", Description = "Расширенный набор возможностей - позволяет редактировать контент" };
             var adminRole = new Role() { Name = "Администратор", Description = "Роль с максимальным уровнем доступа" };
 
-			await _userService.CreateAsync(user, defaultUser.Password);
-			await _userService.CreateAsync(user2, defaultUser1.Password);
-			await _userService.CreateAsync(user3, defaultUser2.Password);
+			if (_userService.Users.FirstOrDefault(x => x.UserName == "Moderator") == null)
+            {
+				await _userService.CreateAsync(user1, defaultUser1.Password);
+				if (_roleService.Roles.FirstOrDefault(x => x.Name == "Модератор") == null)
+					await _roleService.CreateAsync(moderRole);
+				await _userService.AddToRoleAsync(user1, _roleService.Roles.FirstOrDefault(x => x.Name == "Модератор").Name);
+			}
 
-			if (!_roleService.Roles.Contains(userRole)) 
-                await _roleService.CreateAsync(userRole);
-			if (!_roleService.Roles.Contains(moderRole))
-                await _roleService.CreateAsync(moderRole);
-			if (!_roleService.Roles.Contains(adminRole)) 
-                await _roleService.CreateAsync(adminRole);
+			if (_userService.Users.FirstOrDefault(x => x.UserName == "Administrator") == null)
+            {
+				await _userService.CreateAsync(user, defaultUser.Password);
+				if (_roleService.Roles.FirstOrDefault(x => x.Name == "Администратор") == null)
+					await _roleService.CreateAsync(adminRole);
+				await _userService.AddToRoleAsync(user, _roleService.Roles.FirstOrDefault(x => x.Name == "Администратор").Name);
+			}
 
-            await _userService.AddToRoleAsync(user, adminRole.Name);
-            await _userService.AddToRoleAsync(user2, moderRole.Name);
-            await _userService.AddToRoleAsync(user3, userRole.Name);
-        }
+			if (_userService.Users.FirstOrDefault(x => x.UserName == "User") == null)
+            {
+				await _userService.CreateAsync(user2, defaultUser2.Password);
+				if (_roleService.Roles.FirstOrDefault(x => x.Name == "Пользователь") == null)
+                    await _roleService.CreateAsync(userRole);
+				await _userService.AddToRoleAsync(user2, _roleService.Roles.FirstOrDefault(x => x.Name == "Пользователь").Name);
+			}
+		}
     }
 }

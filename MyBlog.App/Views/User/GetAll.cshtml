@@ -3,7 +3,7 @@
 	ViewData["Title"] = "List of users";
 }
 @{
-    @if (User.IsInRole("Администратор") || User.IsInRole("Модератор"))
+    @if (User.IsInRole("Администратор"))
     {
         <a class="btn btn-sm btn-primary" asp-area="" asp-controller="User" asp-action="Create">Create User</a>
         <p></p>
